@@ -68,10 +68,9 @@ const useAuthStore = create(
           }
         }
       })),
-      onRehydrateStorage: () => (state) => {
-        if (state) {
-          state._hasHydrated = true;
-        }
+      onRehydrateStorage: () => () => {
+        // setState fuerza re-render; mutar state._hasHydrated no lo hace
+        useAuthStore.setState({ _hasHydrated: true });
       }
     }
   )
